@@ -3,6 +3,7 @@ import torch.utils.data
 import torchvision
 
 from .coco import build as build_coco
+from .coco_garment import build as build_coco_garment
 
 
 def get_coco_api_from_dataset(dataset):
@@ -22,4 +23,6 @@ def build_dataset(image_set, args):
         # to avoid making panopticapi required for coco
         from .coco_panoptic import build as build_coco_panoptic
         return build_coco_panoptic(image_set, args)
+    if args.dataset_file == 'garment':
+        return build_coco_garment(image_set, args)
     raise ValueError(f'dataset {args.dataset_file} not supported')
